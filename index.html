@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JsTelegramBotReply</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <script>
+
+    function Send() {
+
+      //read input value
+      let bot_token = document.getElementById('bot_token').value
+      let bot_chat_id = document.getElementById('bot_chat_id').value
+      let bot_message = document.getElementById('bot_message').value
+
+      //replace space with +
+      bot_message = bot_message.replace(" ", "+")
+
+      //create url
+      let bot_request_url = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chat_id + '&text=' + bot_message;
+
+      //send request
+      fetch(bot_request_url)
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
+
+  </script>
+
+</head>
+
+<body>
+
+  <section class="hero is-light is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+
+        <h1 class="title">
+          JsTelegramBotReply
+        </h1>
+        <p class="subtitle">
+          Send messages via Telegram Bot
+        </p>
+
+        <div class="field">
+          <label class="label">Token</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-light" placeholder="Token" value="" id="bot_token">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+
+          <div class="field">
+            <label class="label">Chat ID</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-dark" placeholder="Chat ID" value="" id="bot_chat_id">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+
+            <div class="field">
+              <label class="label">Message</label>
+              <div class="control">
+                <textarea class="textarea" placeholder="Textarea" id="bot_message"></textarea>
+              </div>
+            </div>
+
+            <div class="control">
+              <button class="button is-link is-fullwidth" onclick="Send();">Invia</button>
+            </div>
+
+          </div>
+
+        </div>
+  </section>
+
+</body>
+
+</html>
