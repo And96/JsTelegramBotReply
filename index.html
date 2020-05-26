@@ -15,7 +15,7 @@
             setDefaultValue()
         }, false);
 
-        //Set default value if specified in URL
+        //Set default values if specified in URL
         function setDefaultValue() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -42,6 +42,57 @@
             fetch(bot_request_url)
                 .then(response => response.json())
                 .then(data => console.log(data));
+        }
+
+        function viewReceived() {
+
+            //Create url
+            let bot_token = document.getElementById('bot_token').value
+            let bot_request_url = 'https://api.telegram.org/bot' + bot_token + '/getUpdates';
+
+            //Send request
+            fetch(bot_request_url)
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+
+                    console.log(data)
+
+                    //Clear previous messages
+                    const myNode = document.getElementById("ReceivedMessages");
+                    while (myNode.firstChild) {
+                        myNode.removeChild(myNode.lastChild);
+                    }
+
+                    //Add new messages
+                    for (var i = 0; i < data.result.length; i++) {
+                        if (i == 0) {
+                            var label = document.createElement("b");
+                            label.innerHTML = "Received Messages";
+                            label.class = "label"
+                            document.getElementById("ReceivedMessages").appendChild(label);
+                        }
+                        var chat = document.createElement("P");
+                        chat.innerHTML += " Chat ID: " + data.result[i].message.chat.id;
+                        chat.innerHTML += " Date: " + new Date(data.result[i].message.date * 1000).toLocaleDateString("it-IT");
+                        chat.innerHTML += " " + new Date(data.result[i].message.date * 1000).toLocaleTimeString("it-IT");
+                        chat.innerHTML += " Name: " + data.result[i].message.chat.first_name;
+                        chat.innerHTML += " Message: " + data.result[i].message.text;
+                        chat.id = "chat"
+                        document.getElementById("ReceivedMessages").appendChild(chat);
+                    }
+
+                })
+                .catch(err => {
+
+                    var chat = document.createElement("P");
+                    chat.innerHTML = " Error "
+                    chat.id = "chat"
+                    document.getElementById("ReceivedMessages").appendChild(chat);
+
+                })
+
         }
 
     </script>
@@ -87,7 +138,18 @@
                         </div>
 
                         <div class="control">
-                            <button class="button is-link is-fullwidth" onclick="Send();">Invia</button>
+                            <button class="button is-success is-fullwidth" onclick="Send();">Send message</button>
+                        </div>
+
+                        <div class="control">
+                            <button class="button is-link is-fullwidth" onclick="viewReceived();">View received
+                                messages</button>
+                        </div>
+
+                        </br>
+
+                        <div id="ReceivedMessages">
+
                         </div>
 
                     </div>
