@@ -2,8 +2,8 @@
 Send messages via Telegram Bot in your browser.
 
 ### Features
-- View recent messages received.
-- Send new messages
+ - View received messages
+ - Send new messages 
 
 ### Usage
 1. Open [@BotFather in Telegram](https://telegram.me/BotFather)
@@ -13,5 +13,9 @@ Send messages via Telegram Bot in your browser.
 5. Enter "chat id" in the field
 6. Enter text and send the message
 
-#### Test available here:
+### Test available here:
 https://and96.github.io/JsTelegramBotReply/
+
+### Limitations
+ - Bot can reply to users. It can't never start new conversations with new users. (Telegram API)
+ - Received messages contains only recent messages. (Telegram API)
