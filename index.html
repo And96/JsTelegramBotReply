@@ -65,14 +65,15 @@
                         myNode.removeChild(myNode.lastChild);
                     }
 
+                    /*//Add title
+                    var label = document.createElement("b");
+                    label.innerHTML = "Received Messages";
+                    label.class = "label"
+                    document.getElementById("ReceivedMessages").appendChild(label);*/
+
                     //Add new messages
                     for (var i = 0; i < data.result.length; i++) {
-                        if (i == 0) {
-                            var label = document.createElement("b");
-                            label.innerHTML = "Received Messages";
-                            label.class = "label"
-                            document.getElementById("ReceivedMessages").appendChild(label);
-                        }
+
                         var chat = document.createElement("P");
                         chat.innerHTML += " Chat ID: " + data.result[i].message.chat.id;
                         chat.innerHTML += " Date: " + new Date(data.result[i].message.date * 1000).toLocaleDateString("it-IT");
@@ -87,7 +88,7 @@
                 .catch(err => {
 
                     var chat = document.createElement("P");
-                    chat.innerHTML = " Error! Check your Token / Chat ID /Network Connection. "
+                    chat.innerHTML = " Error! Check your Token / Chat ID / Network Connection. "
                     chat.id = "chat"
                     document.getElementById("ReceivedMessages").appendChild(chat);
 
@@ -112,52 +113,76 @@
                     Send messages via Telegram Bot
                 </p>
 
-                <div class="field">
-                    <label class="label">Token</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" placeholder="Token" value="" id="bot_token">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>
-                    </div>
+                <div class="container">
+                    <div class="columns">
 
-                    <div class="field">
-                        <label class="label">Chat ID</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" placeholder="Chat ID" value="" id="bot_chat_id">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                        </div>
+                        <div class="column is-two-fifths">
 
-                        <div class="field">
-                            <label class="label">Message</label>
-                            <div class="control">
-                                <textarea class="textarea" placeholder="Textarea" id="bot_message"></textarea>
+                            <div class="field">
+                                <label class="label">Token</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" placeholder="Token" value="" id="bot_token">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
                             </div>
+
+                            <div class="field">
+                                <label class="label">Chat ID</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" placeholder="Chat ID" value="" id="bot_chat_id">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Message</label>
+                                <div class="control">
+                                    <textarea class="textarea" placeholder="Textarea" id="bot_message"></textarea>
+                                </div>
+                            </div>
+
+                            <p class="buttons is-half">
+                                <button class="button is-success is-fullwidth" onclick="send();">
+                                    <span class="icon">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </span>
+                                    <span>Send message</span>
+                                </button>
+                                <button class="button is-link is-fullwidth" onclick="viewReceived();">
+                                    <span class="icon">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                    <span>View received</span>
+                                </button>
+                            </p>
+
                         </div>
 
-                        <div class="control">
-                            <button class="button is-success is-fullwidth" onclick="Send();">Send message</button>
+                        <div class="column">
+
+                            <label class="label">Received Messages</label>
+
+                            <article class="message is-fullheight">
+                                <div class="message-body">
+                                    <div id="ReceivedMessages">
+                                        <p>Enter bot token to view messages</p>
+                                    </div>
+                                </div>
+                            </article>
+
                         </div>
-
-                        <div class="control">
-                            <button class="button is-link is-fullwidth" onclick="viewReceived();">View received
-                                messages</button>
-                        </div>
-
-                        </br>
-
-                        <div id="ReceivedMessages">
-
-                        </div>
-
                     </div>
 
                 </div>
 
             </div>
+
         </div>
+
     </section>
 
 </body>
